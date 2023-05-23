@@ -1,0 +1,137 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Array massive = new Array();
+        massive.arr();
+        System.out.println("Массив:");
+        massive.out();
+        massive.sort1();
+        massive.sort2();
+        System.out.println("1 ЗАДАНИЕ - отсортированный массив: ");
+        massive.out();
+        System.out.println("2 ЗАДАНИЕ: ");
+        System.out.println("Минимальный элемент = " + massive.getMin());
+        System.out.println("Массив, в котором все отрицательные элементы заменены на минимальный элемент:");
+        massive.minusElemVMin();
+        System.out.println("3 ЗАДАНИЕ: ");
+        massive.deleteItemK();
+        massive.out();
+    }
+}
+class Array {
+    int count;
+    float[] array = new float[count];
+    void setCount(){
+        Scanner s = new Scanner(System.in);
+        count = s.nextInt();
+    }
+    int getCount() {
+        return count;
+    }
+    void arr() {
+        System.out.print("Введите кол-во элементов в массиве: ");
+        setCount();
+        array = new float[count];
+        for (int i = 0; i < getCount(); i++) {
+            System.out.print("[" + i + "] = ");
+            Scanner m = new Scanner(System.in);
+            array[i] = m.nextFloat();
+        }
+    }
+
+    void out() {
+        for (int i = 0; i < count; i++) {
+            System.out.print(array[i] + "\t");
+        }
+        System.out.println();
+    }
+
+    int getMaxIn(int start) {
+        int ind = start;
+        double max = array[start];
+        for (int i = start+1; i < count; i++) {
+            if (array[i] > max) {
+                max = array[i];
+                ind = i;
+            }
+        }
+        return ind;
+
+    }
+
+    float getMin() {
+        float min = array[0];
+        for (int i = 0; i < count; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+        return min;
+
+    }
+    void sort1() {
+        if (count % 2 == 0) {
+            for (int i = 0; i < count / 2; i++) {
+                int index = getMinIn1(i);
+                float temp = array[i];
+                array[i] = array[index];
+                array[index] = temp;
+            }
+        } else {
+            for (int i = 0; i < (count - 1) / 2; i++) {
+                int index = getMinIn1(i);
+                float temp = array[i];
+                array[i] = array[index];
+                array[index] = temp;
+            }
+        }
+    }
+    void sort2(){
+        if(count%2==0) {
+            for (int i = count/2 ; i < count - 1; i++) {
+                int index = getMaxIn(i);
+                float temp = array[i];
+                array[i] = array[index];
+                array[index] = temp;
+            }
+        } else{
+            for (int i = (count+1)/2; i < count - 1; i++) {
+                int index = getMaxIn(i);
+                float temp = array[i];
+                array[i] = array[index];
+                array[index] = temp;
+            }
+        }
+    }
+    int getMinIn1(int start) {
+        int ind = start;
+        float min = array[start];
+        for (int i = start + 1; i < count/2; i++) {
+            if (array[i] < min) {
+                min = array[i];
+                ind = i;
+            }
+        }
+        return ind;
+    }
+    void minusElemVMin() {
+        for (int i = 0; i < count; i++) {
+            if (array[i] < 0) {
+                array[i] = getMin();
+            }
+        }
+    }
+    void deleteItemK() {
+        System.out.print("Введите число k = ");
+        Scanner d = new Scanner(System.in);
+        int count1 = 0;
+        int k = d.nextInt();
+        for(int i = 0;i<count;i++){
+            if(array[i] > k){
+                array[count1++] = array[i];
+            }
+        }
+        count = count1;
+    }
+
+}

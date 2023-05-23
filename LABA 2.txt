@@ -1,0 +1,86 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Array massive = new Array();
+        massive.arr();
+        System.out.println("Массив:");
+        massive.out();
+        System.out.println("Минимальный элемент "+"["+massive.getMinIn()+"] = " + massive.getMin());
+        System.out.println("Максимальный элемент "+"["+massive.getMaxIn()+"] = " + massive.getMax());
+        massive.replaceMinMax();
+        massive.out();
+    }
+}
+class Array {
+    private int count;
+    int[] array = new int[count];
+
+    void setCount() {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Введите кол-во элементов в массиве: ");
+        count = s.nextInt();
+        array = new int[count];
+    }
+    int getCount() {
+        return count;
+    }
+    void arr() {
+        setCount();
+        for (int i = 0; i < getCount(); i++) {
+            System.out.print("[" + i + "] = ");
+            Scanner m = new Scanner(System.in);
+            array[i] = m.nextInt();
+        }
+    }
+    void out() {
+        for (int i = 0; i < count; i++) {
+            System.out.print(array[i] + "\t");
+        }
+        System.out.println();
+    }
+    int getMax() {
+        int max = array[0];
+        for (int i = 0; i < count; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+        return max;
+    }
+    int getMin() {
+        int min = array[0];
+        for (int i = 0; i < count; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+        return min;
+    }
+    int getMaxIn() {
+        int max = array[0];
+        int index = 0;
+        for (int i = 0; i < count; i++) {
+            if (array[i] > max) {
+                max = array[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+    int getMinIn() {
+        int ind = 0;
+        int min = array[0];
+        for (int i = 0; i < count; i++) {
+            if (array[i] < min) {
+                min = array[i];
+                ind = i;
+            }
+        }
+        return ind;
+    }
+    void replaceMinMax() {
+        int temp = array[getMaxIn()];
+        array[getMaxIn()] = array[getMinIn()];
+        array[getMinIn()] = temp;
+    }
+}
